@@ -51,4 +51,5 @@ ln(kf) <-
   ln(1-0.001005*sal) + 
   ln(1 + (st/ks))
 
-
+## eq.7 (eq.1 rearranged)
+pH_sw <- pH_f - log(1 + (st/ks) +(ft/kf))
