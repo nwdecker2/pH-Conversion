@@ -14,25 +14,38 @@ pH_f <- -log[H^+]_f
 
 
 ## The Seawater Scale is defined as:
-pH_sws <- -log([H^+]_F + [HSO4^-] + [HF]) = -log[H^+]_sws
+pH_sws <- -log([H^+]_F +
+                 [HSO4^-] + 
+                 [HF]) 
+= -log[H^+]_sws
 
 ## Scales can be related using the equation
-
-pH_F <-  pH_sws + log(1 + (S_T/K^*_S) +(F_T/K^*_F))
+  ## eq.1
+pH_f <-  pH_sws +
+  log(1 + 
+        (S_T/K^*_S) +
+        (F_T/K^*_F))
 
 ## Where: 
 ## K^*_S is the stability constant of Hydrogen sulfate
 ##    Calcualtion can be found Below
 ## K^*_F is the stability constant of Hydrogen fluoride
-
-
 ## S_T is the total sulfate concentration
 ## F_T is the total fluoride concentration
 
-## Values of S_T and F_T for seawater may be found in DOE (or in the back of
-## CO2 in Seawater)
+
+## S_T (mol/kg-soln) can be calculated as follows:
+  ## eq.2
+S_T <- 0.02824*(S/35)
+
+
+## F_T (mol/kg-soln) can be calcualted as follows:
+  ## eq.3
+F_T <- 7*(10^(-5))*(S/35)
+
 
 ## K^*_S can be calculated with:
+  ## eq.4
 ln(K^*_S) <- 
   (-4276.1/T) +
   141.328 -
@@ -46,26 +59,23 @@ ln(K^*_S) <-
   (2698/T)*I^(3/2) +
   (1776/T)*I^2 +
   ln(1-0.001005*S)
-## Where
+## Where (eq.5)
 I <- 
   (19.924*S)/
   (100-1.005*S)
 
 ## K^*_F can be calculated with:
+  ## eq.6
 ln(K^*_F) <- 
   (1500.2/T) - 
   12.641 + 
   1.525*I^(1/2) + 
   ln(1-0.001005*S) + 
   ln(1 + (S_T/K^*_S))
-## Where
+## Where (eq.5)
 I <- 
   (19.924*S)/
   (100-1.005*S)
-## (Ionic Strength)
-
-
-
 
 
 
