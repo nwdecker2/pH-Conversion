@@ -13,9 +13,6 @@ phconv$I <-
 ## Creates a new column for and calculates st
 phconv$st <- 0.02824*(phconv$sal/35)
 
-## Creates a new column for and calculates ft
-phconv$ft <- 7*(10^(-5))*(phconv$sal/35)
-
 ## Creates a new column for and calculates ln(ks)
 phconv$lnks <- 
   (-4276.1/phconv$temp) +
@@ -33,29 +30,15 @@ phconv$lnks <-
 ## Converts ln(ks) to ks
 phconv$ks <- e^(phconv$lnks)
 
-## Creates a new column for and calculates ln(kf)
-phconv$lnkf <- 
-  (1500.2/phconv$temp) - 
-  12.641 + 
-  1.525*phconv$I^(1/2) + 
-  ln(1-0.001005*phconv$sal) + 
-  ln(1 + (st/ks))
-## Converts ln(kf) to kf
-phconv$kf <- e^(phconv$lnkf)
 
-
-## Finally, pH_sw can be calculated from this equation,
+## Finally, pH_T can be calculated from this equation,
 ## but first it needs to be rearranged
-## pH_f <-  pH_sw + log(1 + (st/ks) +(ft/kf))   [eq.1]
-## pH_sw <- pH_f - log(1 + (st/ks) +(ft/kf))    [eq.7]
+## pH_f <-  pH_T + log(1 + (st/ks))   [eq.1]
+## pH_T <- pH_f - log(1 + (st/ks))    [eq.5]
 
-phconv$pH_sw <- 
-  phconv$pH_f - 
-  log(1 + 
-        (phconv$st/phconv$ks) +
-        (phconv$ft/phconv$kf))
+phconv$pH_T <- phconv$pH_f - log(1 + (phconv$st/phconv$ks))
 
 
 ##Finally
 
-print(phconv$pH_sw)
+print(phconv$pH_T)
